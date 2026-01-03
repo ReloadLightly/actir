@@ -1,0 +1,19 @@
+# Python internals
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual Environment (CRITICAL)
+venv/
+env/
+.env
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# VS Code settings (optional, keeps repo clean)
+.vscode/
+
+# OS metadata
+.DS_Store
+Thumbs.db
