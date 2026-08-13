@@ -188,19 +188,31 @@ def validate_atlas(
                 "Sequence link refers to an unknown discourse act or claim.",
             ))
             continue
-        if link.relation in {
-            SequenceRelation.PRECEDES,
-            SequenceRelation.RESPONDS_TO,
-            SequenceRelation.ADAPTS_TO,
-        }:
-            before = _parse_iso_date(date_index.get(link.from_record_id))
-            after = _parse_iso_date(date_index.get(link.to_record_id))
-            if before is not None and after is not None and before > after:
-                issues.append(_issue(
-                    ValidationCode.TEMPORAL_ORDER,
-                    link.link_id,
-                    "A preceding action, response, or adaptation cannot follow its target.",
-                ))
+        from_date = _parse_iso_date(date_index.get(link.from_record_id))
+        to_date = _parse_iso_date(date_index.get(link.to_record_id))
+        if from_date is None or to_date is None:
+            continue
+
+        # A link always reads: from_record_id RELATION to_record_id.
+        # A predecessor must be earlier; a response or adaptation must be later.
+        invalid_order = (
+            link.relation == SequenceRelation.PRECEDES and from_date > to_date
+        ) or (
+            link.relation in {
+                SequenceRelation.RESPONDS_TO,
+                SequenceRelation.ADAPTS_TO,
+            }
+            and from_date < to_date
+        )
+        if invalid_order:
+            issues.append(_issue(
+                ValidationCode.TEMPORAL_ORDER,
+                link.link_id,
+                (
+                    "Temporal order contradicts the convention "
+                    "'from_record_id RELATION to_record_id'."
+                ),
+            ))
 
     for event in audit_items:
         if event.method not in authorized_methods:

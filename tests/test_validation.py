@@ -102,7 +102,14 @@ class ValidationTests(unittest.TestCase):
         )
         self.assertIn(ValidationCode.INVALID_EPISTEMIC_STATE, {x.code for x in report.issues})
 
-    def test_rejects_impossible_response_order(self) -> None:
+    def _report_for_link(
+        self,
+        relation: SequenceRelation,
+        from_date: str,
+        to_date: str,
+    ):
+        """Validate one dated link using the from RELATION to convention."""
+
         report = validate_atlas(
             sources=(SOURCE,),
             evidence_spans=(SPAN,),
@@ -112,11 +119,49 @@ class ValidationTests(unittest.TestCase):
                 link_id="link-1",
                 from_record_id="claim-1",
                 to_record_id="discourse-1",
-                relation=SequenceRelation.RESPONDS_TO,
+                relation=relation,
             ),),
-            record_dates={"claim-1": "2023-01-01", "discourse-1": "2022-01-01"},
+            record_dates={"claim-1": from_date, "discourse-1": to_date},
+        )
+        return report
+
+    def test_precedes_requires_from_record_not_to_be_later(self) -> None:
+        report = self._report_for_link(
+            SequenceRelation.PRECEDES,
+            from_date="2023-01-01",
+            to_date="2022-01-01",
         )
         self.assertIn(ValidationCode.TEMPORAL_ORDER, {x.code for x in report.issues})
+
+    def test_responds_to_requires_from_record_not_to_be_earlier(self) -> None:
+        report = self._report_for_link(
+            SequenceRelation.RESPONDS_TO,
+            from_date="2021-01-01",
+            to_date="2022-01-01",
+        )
+        self.assertIn(ValidationCode.TEMPORAL_ORDER, {x.code for x in report.issues})
+
+    def test_adapts_to_requires_from_record_not_to_be_earlier(self) -> None:
+        report = self._report_for_link(
+            SequenceRelation.ADAPTS_TO,
+            from_date="2021-01-01",
+            to_date="2022-01-01",
+        )
+        self.assertIn(ValidationCode.TEMPORAL_ORDER, {x.code for x in report.issues})
+
+    def test_directional_relations_accept_coherent_order(self) -> None:
+        cases = (
+            (SequenceRelation.PRECEDES, "2022-01-01", "2023-01-01"),
+            (SequenceRelation.RESPONDS_TO, "2023-01-01", "2022-01-01"),
+            (SequenceRelation.ADAPTS_TO, "2023-01-01", "2022-01-01"),
+        )
+        for relation, from_date, to_date in cases:
+            with self.subTest(relation=relation):
+                report = self._report_for_link(relation, from_date, to_date)
+                self.assertNotIn(
+                    ValidationCode.TEMPORAL_ORDER,
+                    {x.code for x in report.issues},
+                )
 
     def test_rejects_unauthorized_or_untraceable_transformation(self) -> None:
         report = validate_atlas(audit_events=(AuditEvent(
