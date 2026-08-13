@@ -1,27 +1,102 @@
-# ACTIR: A Computational Theory of International Relations
+# ACTIR Statecraft Atlas
 
-**Status:** Active Development (Pre-Alpha)
-**Author:** Roland Nikolaus Loechli, PhD
+ACTIR is an adaptive computational decision-support tool for international
+relations. The Statecraft Atlas reconstructs what states say, what they are
+reported to do, why those actions are expected to work, how other actors
+respond, and what outcomes follow. It turns those records into provenance-rich
+policy programs that can be retrieved, challenged, recombined, simulated, and
+improved.
 
-## Overview
-ACTIR is a Multi-Agent Reinforcement Learning (MARL) environment designed to operationalize the "Third Image" of International Relations theory: **Structural Realism**.
+Japan's search for a novel foreign policy after 2022 is the first decision
+context. ACTIR does not predict an optimal Japanese policy or automate a
+sovereign decision. It produces an auditable portfolio of conditional options
+for human deliberation under uncertainty.
 
-Unlike standard game-theoretic models (Diplomacy, Risk) which rely on fixed turns and victory points, ACTIR models the international system as a continuous, anarchic process defined by:
-1.  **Survival** as the primary objective.
-2.  **The Security Dilemma** (defensive moves are perceived as offensive).
-3.  **The Stopping Power of Water** (geographic constraints on hegemony).
+## The sole IR baseline
 
-## Core Architecture
-* **`src/world.py`**: The physics engine of Anarchy. Enforces the "Self-Help" system constraints.
-* **`src/unit.py`**: The "Like-Units" (Waltz, 1979). Agents distinguished only by material capabilities.
-* **`waltz_baseline.ipynb`**: Simulation of a pure Waltzian world without learning (Random Walk).
+ACTIR begins from the five assumptions that define John J. Mearsheimer's
+offensive realism in *The Tragedy of Great Power Politics* (2001):
 
-## Research Goals
-* **Phase 1 (Current):** Establish a Waltzian baseline where anarchy produces suboptimal outcomes (war) despite rational survival goals.
-* **Phase 2:** Implement "Constructivist" agents (Wendt) that evolve identity via NLP.
-* **Phase 3:** Simulate the "Unipolar to Multipolar" transition (2017-Present) to identify tipping points in the East China Sea security architecture.
+1. the international system is anarchic;
+2. great powers possess some offensive military capability;
+3. states cannot be certain about other states' intentions;
+4. survival is the primary goal of great powers;
+5. great powers are rational strategic actors.
 
-## Initial Results
-Baseline simulation of 5 agents under Structural Realism constraints (Random Policy).
-Demonstrates the inevitable emergence of Hegemony (Unipolarity) without active balancing strategies.
-![Baseline Simulation](simulation_baseline.png)
+These assumptions define the strategic environment. They do not give ACTIR an
+oracle, erase uncertainty, or predetermine one Japanese strategy. Other
+scholarship may enter the Atlas as source material, but it does not supply
+additional governing axioms.
+
+## The Atlas record
+
+The fundamental unit is an action–mechanism claim:
+
+```text
+actor → observation → action → target → expected mechanism
+      → response → adaptation → outcome → evidence
+```
+
+ACTIR preserves four epistemically different layers:
+
+1. what a state says;
+2. what a state is reported to have done;
+3. how a source explains or evaluates the action;
+4. what independently verifiable outcomes followed.
+
+Each record retains its document, passage, date, source type, epistemic status,
+extraction history, verification decision, and human adjudication. An LLM may
+assist extraction; it is never the epistemic authority.
+
+## From Atlas to decision support
+
+```text
+Japanese decision question and evidence
+                  ↓
+ retrieve analogous actions, mechanisms, failures, and responses
+                  ↓
+ compose conditional policy programs and neglected alternatives
+                  ↓
+ challenge them across uncertain intentions and plausible responses
+                  ↓
+ evaluate security, prosperity, autonomy, regional order, and reversibility
+                  ↓
+ preserve a diverse portfolio with provenance and unresolved disagreement
+                  ↓
+ human adoption, rejection, revision, or abstention
+```
+
+Japan's four immediate policy domains—self-help and resilience, the
+United States–Japan alliance, FOIP-oriented regional networks, and relations
+with China—are initial retrieval views. They do not limit the Atlas's action
+grammar, which must also represent restraint, delay, ambiguity, reassurance,
+diversification, delegation, institution-building, domestic mobilization, and
+deliberate inaction.
+
+## ShinkaEvolve compatibility
+
+The Atlas and decision loop are ACTIR. ShinkaEvolve is a replaceable search
+backend that may later propose or mutate inspectable policy programs against a
+frozen ACTIR task. It may not silently alter evidence, the five assumptions,
+constraints, outcome definitions, held-out cases, or human authority.
+
+ACTIR will first work deterministically without an API. Once the schema,
+retrieval, evaluation, and decision dossier are independently viable, the same
+candidate interface can support enumeration, human proposals,
+quality-diversity search, or ShinkaEvolve.
+
+## Status: Stage A.0
+
+This branch replaces the January 2026 notebook experiment with the Statecraft
+Atlas north star. The earlier files remain recoverable in Git history but are
+not part of the new repository tree.
+
+Stage A.0 contains no extraction run, simulation result, or API call. It asks
+one question only: does the contract faithfully specify the system we intend to
+build?
+
+- [`docs/STATECRAFT_ATLAS_CONTRACT.md`](docs/STATECRAFT_ATLAS_CONTRACT.md)
+- [`docs/DEVELOPMENT_PROTOCOL.md`](docs/DEVELOPMENT_PROTOCOL.md)
+
+The next stage will implement only the typed, versioned Atlas record schema and
+validation rules.
