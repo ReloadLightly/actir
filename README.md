@@ -1,9 +1,10 @@
 # ACTIR Statecraft Atlas
 
-ACTIR is an adaptive computational decision-support tool for international
-relations. The Statecraft Atlas reconstructs what states say, what they are
-reported to do, why those actions are expected to work, how other actors
-respond, and what outcomes follow. It turns those records into provenance-rich
+ACTIR—the Adaptive Computational Theory of International Relations—is the
+framework. The Statecraft Atlas is its versioned dataset and evidence layer. It
+reconstructs what states say, what they are reported to do, why sources expect
+those actions to work, how other actors respond, and what outcomes can be
+independently checked. ACTIR uses those records to construct provenance-rich
 policy programs that can be retrieved, challenged, recombined, simulated, and
 improved.
 
@@ -75,28 +76,31 @@ deliberate inaction.
 
 ## ShinkaEvolve compatibility
 
-The Atlas and decision loop are ACTIR. ShinkaEvolve is a replaceable search
-backend that may later propose or mutate inspectable policy programs against a
-frozen ACTIR task. It may not silently alter evidence, the five assumptions,
-constraints, outcome definitions, held-out cases, or human authority.
+The Atlas supplies ACTIR's evidence; ACTIR owns the decision loop.
+ShinkaEvolve is a replaceable search backend that may later propose or mutate
+inspectable policy programs against a frozen ACTIR task. It may not silently
+alter evidence, the five assumptions, constraints, outcome definitions,
+held-out cases, or human authority.
 
 ACTIR will first work deterministically without an API. Once the schema,
 retrieval, evaluation, and decision dossier are independently viable, the same
 candidate interface can support enumeration, human proposals,
 quality-diversity search, or ShinkaEvolve.
 
-## Status: Stage A.0
+## Status: Stage A.1
 
 This branch replaces the January 2026 notebook experiment with the Statecraft
 Atlas north star. The earlier files remain recoverable in Git history but are
 not part of the new repository tree.
 
-Stage A.0 contains no extraction run, simulation result, or API call. It asks
-one question only: does the contract faithfully specify the system we intend to
-build?
+Stage A.1 adds only the typed, versioned Statecraft Atlas schema. It asks one
+question: can the contract's epistemic distinctions and decision-support
+artifacts be represented without collapsing them?
 
 - [`docs/STATECRAFT_ATLAS_CONTRACT.md`](docs/STATECRAFT_ATLAS_CONTRACT.md)
 - [`docs/DEVELOPMENT_PROTOCOL.md`](docs/DEVELOPMENT_PROTOCOL.md)
+- [`src/actir/statecraft_atlas/schema.py`](src/actir/statecraft_atlas/schema.py)
 
-The next stage will implement only the typed, versioned Atlas record schema and
-validation rules.
+This stage contains no corpus record, extraction, semantic validator,
+retrieval, simulation, search, result, API call, or ShinkaEvolve dependency.
+Stage A.2 will add semantic validation against these frozen types.
