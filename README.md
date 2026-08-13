@@ -87,20 +87,25 @@ retrieval, evaluation, and decision dossier are independently viable, the same
 candidate interface can support enumeration, human proposals,
 quality-diversity search, or ShinkaEvolve.
 
-## Status: Stage A.1
+## Status: Stage A.2
 
 This branch replaces the January 2026 notebook experiment with the Statecraft
 Atlas north star. The earlier files remain recoverable in Git history but are
 not part of the new repository tree.
 
-Stage A.1 adds only the typed, versioned Statecraft Atlas schema. It asks one
-question: can the contract's epistemic distinctions and decision-support
-artifacts be represented without collapsing them?
+Stage A.2 adds only deterministic semantic validation. It asks one question:
+can ACTIR reject records that violate its epistemic and audit contract before
+those records enter a corpus or decision process?
 
 - [`docs/STATECRAFT_ATLAS_CONTRACT.md`](docs/STATECRAFT_ATLAS_CONTRACT.md)
 - [`docs/DEVELOPMENT_PROTOCOL.md`](docs/DEVELOPMENT_PROTOCOL.md)
 - [`src/actir/statecraft_atlas/schema.py`](src/actir/statecraft_atlas/schema.py)
+- [`src/actir/statecraft_atlas/validation.py`](src/actir/statecraft_atlas/validation.py)
 
-This stage contains no corpus record, extraction, semantic validator,
-retrieval, simulation, search, result, API call, or ShinkaEvolve dependency.
-Stage A.2 will add semantic validation against these frozen types.
+The validator rejects missing provenance, invalid epistemic states, inconsistent
+sequence timing, and transformations outside a frozen authorization list. It
+also requires a stated reason when a verifier abstains.
+
+This stage contains no corpus record, extraction, retrieval, simulation,
+search, result, API call, or ShinkaEvolve dependency. Stage A.3 will introduce
+a tiny permission-safe fixture corpus.

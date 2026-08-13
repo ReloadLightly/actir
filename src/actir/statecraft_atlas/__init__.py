@@ -11,6 +11,12 @@ from actir.statecraft_atlas.schema import (
     Source,
     VerificationDecision,
 )
+from actir.statecraft_atlas.validation import (
+    ValidationCode,
+    ValidationIssue,
+    ValidationReport,
+    validate_atlas,
+)
 
 __all__ = [
     "SCHEMA_VERSION",
@@ -22,4 +28,8 @@ __all__ = [
     "SequenceLink",
     "Source",
     "VerificationDecision",
+    "ValidationCode",
+    "ValidationIssue",
+    "ValidationReport",
+    "validate_atlas",
 ]
