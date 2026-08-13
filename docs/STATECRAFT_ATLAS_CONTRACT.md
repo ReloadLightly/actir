@@ -2,11 +2,12 @@
 
 ## 1. Purpose
 
-The Statecraft Atlas is ACTIR's empirical and computational core. It converts
-provenance-bearing evidence about statecraft into structured action–mechanism
-records, connects those records into policy sequences, and makes them usable
-for retrieval, counterfactual challenge, portfolio construction, and adaptive
-decision support.
+ACTIR—the Adaptive Computational Theory of International Relations—is the
+framework. The Statecraft Atlas is its versioned dataset and evidence layer. It
+converts provenance-bearing evidence about statecraft into structured
+action–mechanism records, connects those records into policy sequences, and
+makes them usable by ACTIR for retrieval, counterfactual challenge, portfolio
+construction, and adaptive decision support.
 
 The Atlas is not a topic model, an unverified LLM knowledge base, a catalog of
 academic schools, or a machine for declaring one universally best strategy.
